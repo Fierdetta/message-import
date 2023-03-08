@@ -1,0 +1,14 @@
+{
+    "name": "Message import",
+    "description": "Allows you to import plugins directly from a message's action sheet.",
+    "authors": [
+        {
+            "name": "Fiery",
+            "id": "890228870559698955"
+        }
+    ],
+    "main": "src/index.tsx",
+    "vendetta": {
+        "icon": "ic_message"
+    }
+}
