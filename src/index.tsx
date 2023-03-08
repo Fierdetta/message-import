@@ -31,7 +31,7 @@ export default {
                     React.useEffect(() => {
                         const fetchPluginManifests = async () => {
                             const links = message.content.match(HTTP_REGEX).map((link) => link.endsWith("/") ? link : `${link}/`);
-                            
+
                             const pluginManifests: Indexable<PluginManifest> = {};
 
                             for (const link of links) {
@@ -51,20 +51,22 @@ export default {
 
                     let rows = res?.props?.children?.props?.children?.props?.children[1] as Array<JSX.Element>;
 
-                    for (const pluginLink of Object.keys(pluginManifests)) {
+                    const pluginLinks = Object.keys(pluginManifests);
+
+                    for (const pluginLink of pluginLinks) {
                         const installPluginRow = (<FormRow
                             leading={<Icon source={getAssetIDByName("ic_download_24px")} />}
                             label={`Install ${pluginManifests[pluginLink].name}`}
                             onPress={() => {
                                 // @ts-expect-error
                                 installPlugin(pluginLink).then(() => {
-                                      showToast(`Successfully installed ${pluginManifests[pluginLink].name}`, getAssetIDByName("Check"));
-                                  }).catch((e) => {
+                                    showToast(`Successfully installed ${pluginManifests[pluginLink].name}`, getAssetIDByName("Check"));
+                                }).catch((e) => {
                                     showToast(e.message, getAssetIDByName("Small"));
-                                  })
+                                }).finally(() => { if (pluginLinks.length <= 1) LazyActionSheet.hideActionSheet() })
                             }}
                         />);
-    
+
                         rows.unshift(installPluginRow);
                     };
                 });
