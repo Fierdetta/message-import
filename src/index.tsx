@@ -1,8 +1,7 @@
-import { findByDisplayName, findByProps } from "@vendetta/metro";
+import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { installPlugin } from "@vendetta/plugins";
-// @ts-expect-error
 import { installTheme } from "@vendetta/themes";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
@@ -11,8 +10,7 @@ import { APIMessage } from "discord-api-types/v10";
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
-const { FormRow } = Forms;
-const Icon = findByDisplayName("Icon");
+const { FormRow: { default: FormRow, Icon } } = Forms;
 
 const HTTP_REGEX = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
 
@@ -36,6 +34,7 @@ export default {
                             leading={<Icon source={getAssetIDByName("ic_download_24px")} />}
                             label={`Install ${link}`}
                             onPress={() => {
+                                // @ts-expect-error
                                 (link.endsWith(".json") ? installTheme : installPlugin)(link).then(() => {
                                     showToast(`Successfully installed ${link}`, getAssetIDByName("Check"));
                                 }).catch((e) => {
