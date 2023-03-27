@@ -1,4 +1,4 @@
-import { findByProps } from "@vendetta/metro";
+import { findByName, findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { installPlugin } from "@vendetta/plugins";
@@ -10,7 +10,8 @@ import { APIMessage } from "discord-api-types/v10";
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
-const { FormRow: { default: FormRow, Icon } } = Forms;
+const { FormRow } = Forms;
+const Icon = findByName("Icon");
 
 const HTTP_REGEX = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
 
