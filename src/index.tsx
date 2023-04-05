@@ -5,7 +5,10 @@ import { showToast } from "@vendetta/ui/toasts";
 
 export default {
     onLoad: () => {
-        removePlugin(plugin.id)
-        showToast("Message import has been superceded by features built into Vendetta and removed from your client.", getAssetIDByName("ic_information_24px"))
+        setTimeout(() => {
+            removePlugin(plugin.id)
+            showToast("Message import has been superceded by features built into Vendetta and removed from your client.", getAssetIDByName("ic_information_24px"))
+
+        })
     },
 };
